@@ -28,7 +28,7 @@ public class Main2 : MonoBehaviour
 		var yDelta = vec1.y - vec0.x;
 		var	vecLen = Vector2.Distance(vec1,vec0);
 
-		if (yDelta > ropeLen || vecLen > ropeLen) { Debug.Log("not enough rope"); return 0; }
+		if (yDelta > ropeLen || vecLen > ropeLen) { Debug.Log("not enough rope"); return float.NaN; }
 		if (yDelta < 0)
 		{   //Swop verts, low end needs to be on the left side
 			var tmp = vec0;
@@ -111,22 +111,24 @@ public class Main2 : MonoBehaviour
 		shape.graphics.lineStyle(0, Color.blue);
 		//shape.graphics.beginFill(default);
 		shape.graphics.moveTo(pntA.x, pntA.y);
-
-		for (i = 1; i < segCnt; i++)
+		if (!(float.IsNaN(A)||float.IsInfinity(A)||float.IsNegativeInfinity(A)))
 		{
-			pnt= Vector2.Lerp(pntA, pntB, (float)i / segCnt);
-			y = pnt.y;                          // only for inverting testing, throw away if only want downward sag
-			xpos = i * segInc - distHalf;   // x position between two points but using half as zero center
+			for (i = 1; i < segCnt; i++)
+			{
+				pnt = Vector2.Lerp(pntA, pntB, (float)i / segCnt);
+				y = pnt.y;                          // only for inverting testing, throw away if only want downward sag
+				xpos = i * segInc - distHalf;   // x position between two points but using half as zero center
 
-			c = catenary(A, xpos);                // get a y value, but needs to be changed to work with coord system.
-			pnt.y -= (offset - c);             // Current lerped Y minus C of starting point minus current C
-											   //circle(pnt, 4);
-			//shape.graphics.drawCircle(pnt.x, pnt.y, 4);
-			//pnt.y = y + (offset - c);          // Add Offset C to Lerp Y, inverts the sag upwards
-			//circle(pnt, 1);
-			shape.graphics.lineTo(pnt.x,pnt.y);
-			//shape.graphics.drawCircle(pnt.x, pnt.y, 1);
-			
+				c = catenary(A, xpos);                // get a y value, but needs to be changed to work with coord system.
+				pnt.y -= (offset - c);             // Current lerped Y minus C of starting point minus current C
+												   //circle(pnt, 4);
+												   //shape.graphics.drawCircle(pnt.x, pnt.y, 4);
+												   //pnt.y = y + (offset - c);          // Add Offset C to Lerp Y, inverts the sag upwards
+												   //circle(pnt, 1);
+				shape.graphics.lineTo(pnt.x, pnt.y);
+				//shape.graphics.drawCircle(pnt.x, pnt.y, 1);
+
+			}
 		}
 		shape.graphics.lineTo(pntB.x, pntB.y);
 	}
