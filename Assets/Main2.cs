@@ -17,7 +17,7 @@ public class Main2 : MonoBehaviour
 		shape.graphics.lineStyle(0, Color.blue);
 		shape.graphics.moveTo(0, 0);
 		shape.graphics.lineTo(0, 0);*/
-		LateUpdate2();
+		//LateUpdate2();
 	}
 
 	float  catenary(float a,float x) { return a * MathF.Cosh(x / a); }
@@ -59,7 +59,7 @@ public class Main2 : MonoBehaviour
 		return a;
 	}
 
-	private void LateUpdate2()
+	private void LateUpdate()
     {
 
 		// 获取鼠标在屏幕上的位置
@@ -72,16 +72,16 @@ public class Main2 : MonoBehaviour
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle(shape.rectTransform, mousePosition, null, out canvasPosition))
 		{
 			// canvasPosition 现在包含了鼠标在画布上的坐标
-			Debug.Log("Mouse position on canvas: " + canvasPosition);
+			//Debug.Log("Mouse position on canvas: " + canvasPosition);
 		}
 
 		//https://codepen.io/sketchpunk/pen/ajGrqZ
 		var segCnt = 10;                   // How many divisions (segments) to make
-		var ropeLen = 370;                  // Rope/Chain Length.
-		var pntA =// canvasPosition; //
+		var ropeLen = slider.value * 100;// 370;                  // Rope/Chain Length.
+		var pntA = canvasPosition; //
 								   new Vector2(-170, 80);  // Starting Point of the Rope
 		var pntB =// Vector2.zero; //
-								 new Vector2(100, 0);     // Ending Point of the Rope
+								 new Vector2(0, 0);     // Ending Point of the Rope
 
 		//...........................
 		//Draw Main Points
