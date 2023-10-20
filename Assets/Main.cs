@@ -96,5 +96,6 @@ public class Main : MonoBehaviour
 			}
 			shape.graphics.lineTo(x * 100*sg, y * 100);
 		}
+		shape.graphics.lineTo(p.x*100, p.y*100);
 	}
 }
