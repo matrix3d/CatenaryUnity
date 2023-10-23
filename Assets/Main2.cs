@@ -76,12 +76,12 @@ public class Main2 : MonoBehaviour
 		}
 
 		//https://codepen.io/sketchpunk/pen/ajGrqZ
-		var segCnt = 10;                   // How many divisions (segments) to make
 		var ropeLen = slider.value * 100;// 370;                  // Rope/Chain Length.
-		var pntA = canvasPosition; //
+		var segCnt = ropeLen/10;                // How many divisions (segments) to make
+		var pntA = Vector2.zero; //; //
 								   new Vector2(-170, 80);  // Starting Point of the Rope
-		var pntB =// Vector2.zero; //
-								 new Vector2(0, 0);     // Ending Point of the Rope
+		var pntB = canvasPosition;// Vector2.zero; //
+								 //new Vector2(0, 0);     // Ending Point of the Rope
 
 		//...........................
 		//Draw Main Points
@@ -129,7 +129,13 @@ public class Main2 : MonoBehaviour
 				//shape.graphics.drawCircle(pnt.x, pnt.y, 1);
 
 			}
+			shape.graphics.lineTo(pntB.x, pntB.y);
 		}
-		shape.graphics.lineTo(pntB.x, pntB.y);
+		else
+		{
+			var endB=pntA+(pntB-pntA).normalized*ropeLen;
+			shape.graphics.lineTo(endB.x, endB.y);
+		}
+		
 	}
 }
